@@ -8,7 +8,7 @@ data class Lock(
     val status: LockStatus,
     val batteryLevel: Int
 )
-
+// enum Lock
 enum class LockStatus {
     Activated,
     Deactivated,
