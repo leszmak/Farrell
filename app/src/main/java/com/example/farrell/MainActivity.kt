@@ -46,7 +46,7 @@ class MainActivity : ComponentActivity() {
                         modifier = Modifier.padding(innerPadding)
                     ) {
                         composable<LockListRoute> {
-                            MainApp(
+                            LockListScreen(
                                 modifier = Modifier.padding(innerPadding),
                                 onLockClick = { lock ->
                                     navController.navigate(LockDetailRoute(lock = lock))
