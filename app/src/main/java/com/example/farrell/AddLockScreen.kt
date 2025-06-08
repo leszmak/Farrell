@@ -1,6 +1,5 @@
 package com.example.farrell
 
-import android.renderscript.ScriptGroup.Input
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column

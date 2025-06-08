@@ -49,6 +49,18 @@ fun LockListScreen(modifier: Modifier = Modifier, onLockClick: (Lock) -> Unit, o
 
     Column {
         Button(onClick = onAddLockClick, modifier.fillMaxWidth()) { Text("Dodaj zabezpieczenie") }
+
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = 8.dp),
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            Text(text = "Nazwa", modifier = Modifier.weight(1f))
+            Text(text = "Status", modifier = Modifier.weight(1f))
+            Text(text = "Bateria", modifier = Modifier.weight(1f))
+        }
+
         LazyColumn {
             items(locks) { lock ->
                 Row(
