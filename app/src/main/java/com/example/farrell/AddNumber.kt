@@ -17,9 +17,13 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.runtime.getValue
+import androidx.navigation.NavController
 
 @Composable
-fun AddNumber(modifier: Modifier,lock: Lock, onBackClick: (Lock) -> Unit) {
+fun AddNumber( modifier: Modifier,
+               navController: NavController,
+               lock: Lock
+) {
     var name by remember { mutableStateOf("") }
     var number by remember { mutableStateOf("") }
 
@@ -59,6 +63,6 @@ fun AddNumber(modifier: Modifier,lock: Lock, onBackClick: (Lock) -> Unit) {
             }
         }
         Button(onClick = {}, modifier = Modifier.fillMaxWidth()) { Text(text = "Dodaj") }
-        Button(onClick = { onBackClick(lock) }, modifier = Modifier.fillMaxWidth()) { Text(text = "Wróć") }
+        Button(onClick = {  navController.popBackStack() }, modifier = Modifier.fillMaxWidth()) { Text(text = "Wróć") }
     }
 }

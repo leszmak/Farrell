@@ -17,9 +17,12 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.runtime.getValue
+import androidx.navigation.NavController
 
 @Composable
-fun AddLockScreen(modifier: Modifier, onBackClick: () -> Unit) {
+fun AddLockScreen(modifier: Modifier,
+                  navController: NavController
+) {
     var id by remember { mutableStateOf("") }
     var name by remember { mutableStateOf("") }
 
@@ -77,6 +80,6 @@ fun AddLockScreen(modifier: Modifier, onBackClick: () -> Unit) {
             }
         }
         Button(onClick = {}, modifier = Modifier.fillMaxWidth()) { Text(text = "Zapisz") }
-        Button(onClick = onBackClick, modifier = Modifier.fillMaxWidth()) { Text(text = "Wróć") }
+        Button(onClick = {navController.popBackStack()}, modifier = Modifier.fillMaxWidth()) { Text(text = "Wróć") }
     }
 }

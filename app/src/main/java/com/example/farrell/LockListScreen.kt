@@ -14,6 +14,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 
 val locks = listOf(
     Lock(1, "Front aaaaaaaaaaaa aaaaaaaaaaaaaaaaa aaaaaaaaaa aaaaa", status = LockStatus.Activated, batteryLevel = 78),
@@ -45,10 +46,13 @@ val locks = listOf(
 )
 
 @Composable
-fun LockListScreen(modifier: Modifier = Modifier, onLockClick: (Lock) -> Unit, onAddLockClick: () -> Unit) {
+fun LockListScreen(
+    modifier: Modifier = Modifier,
+    navController: NavController
+) {
 
     Column {
-        Button(onClick = onAddLockClick, modifier.fillMaxWidth()) { Text("Dodaj zabezpieczenie") }
+        Button(onClick = {navController.navigate(AddLockRoute)}, modifier.fillMaxWidth()) { Text("Dodaj zabezpieczenie") }
 
         Row(
             modifier = Modifier
@@ -67,7 +71,7 @@ fun LockListScreen(modifier: Modifier = Modifier, onLockClick: (Lock) -> Unit, o
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(vertical = 8.dp)
-                        .clickable { onLockClick(lock) },
+                        .clickable { navController.navigate(LockDetailRoute(lock = lock)) },
                     horizontalArrangement = Arrangement.SpaceBetween,
                 ) {
                     Text(

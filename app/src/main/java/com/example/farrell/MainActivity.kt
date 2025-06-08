@@ -48,10 +48,8 @@ class MainActivity : ComponentActivity() {
                         composable<LockListRoute> {
                             LockListScreen(
                                 modifier = Modifier.padding(innerPadding),
-                                onLockClick = { lock ->
-                                    navController.navigate(LockDetailRoute(lock = lock))
-                                },
-                                onAddLockClick = { navController.navigate(AddLockRoute) })
+                                navController = navController
+                            )
                         }
 
                         composable<LockDetailRoute>(
@@ -61,20 +59,16 @@ class MainActivity : ComponentActivity() {
                         ) {
                             val arguments = it.toRoute<LockDetailRoute>()
                             LockDetailScreen(
+                                navController = navController,
                                 lock = arguments.lock,
-                                onBackClick = { navController.navigate(LockListRoute) },
-                                onAddNumberClick = { lock ->
-                                    navController.navigate(AddNumberRoute(lock = lock))
-                                }
                             )
                         }
 
                         composable<AddLockRoute> {
                             AddLockScreen(
                                 modifier = Modifier.padding(innerPadding),
-                                onBackClick = {
-                                    navController.navigate(LockListRoute)
-                                })
+                                navController = navController
+                            )
                         }
 
                         composable<AddNumberRoute>(
@@ -85,10 +79,8 @@ class MainActivity : ComponentActivity() {
                             val arguments = it.toRoute<AddNumberRoute>()
                             AddNumber(
                                 modifier = Modifier.padding(innerPadding),
-                                lock = arguments.lock,
-                                onBackClick = { lock ->
-                                    navController.navigate(LockDetailRoute(lock = lock))
-                                }
+                                navController = navController,
+                                lock = arguments.lock
                             )
                         }
                     }
