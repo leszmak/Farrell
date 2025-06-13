@@ -21,7 +21,8 @@ import androidx.navigation.NavController
 
 @Composable
 fun AddLockScreen(modifier: Modifier,
-                  navController: NavController
+                  navController: NavController,
+                  state: State
 ) {
     var id by remember { mutableStateOf("") }
     var name by remember { mutableStateOf("") }

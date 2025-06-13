@@ -7,6 +7,8 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -37,6 +39,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
+            val state = remember { State() }
             FarrellTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     val navController = rememberNavController()
@@ -48,7 +51,8 @@ class MainActivity : ComponentActivity() {
                         composable<LockListRoute> {
                             LockListScreen(
                                 modifier = Modifier.padding(innerPadding),
-                                navController = navController
+                                navController = navController,
+                                state = state
                             )
                         }
 
@@ -60,14 +64,15 @@ class MainActivity : ComponentActivity() {
                             val arguments = it.toRoute<LockDetailRoute>()
                             LockDetailScreen(
                                 navController = navController,
-                                lock = arguments.lock,
+                                state = state
                             )
                         }
 
                         composable<AddLockRoute> {
                             AddLockScreen(
                                 modifier = Modifier.padding(innerPadding),
-                                navController = navController
+                                navController = navController,
+                                state = state
                             )
                         }
 
@@ -80,7 +85,8 @@ class MainActivity : ComponentActivity() {
                             AddNumber(
                                 modifier = Modifier.padding(innerPadding),
                                 navController = navController,
-                                lock = arguments.lock
+                                lock = arguments.lock,
+                                state = state
                             )
                         }
                     }

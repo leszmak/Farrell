@@ -1,5 +1,5 @@
 package com.example.farrell
-
+import com.example.farrell.AddNumberRoute
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -21,9 +21,11 @@ import androidx.navigation.NavController
 
 @Composable
 fun LockDetailScreen(
-    lock: Lock,
+
     navController: NavController,
+    state: State
 ) {
+    val lock = state.lockList.value.find { it.id == state.selectedLock.value }
     Box(
         modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.TopStart
@@ -42,7 +44,7 @@ fun LockDetailScreen(
                         horizontalArrangement = Arrangement.SpaceBetween
                     ) {
                         Text(
-                            text = lock.name,
+                            text = lock?.name ?: "Brak nazwy",
                             maxLines = 1,
                             overflow = TextOverflow.Ellipsis,
                             modifier = Modifier.weight(1f)
@@ -51,8 +53,8 @@ fun LockDetailScreen(
                             modifier = Modifier
                                 .width(100.dp),
                         ) {
-                            Text(text = "${lock.status}")
-                            Text(text = "Bateria: ${lock.batteryLevel}%")
+                            Text(text = "${lock?.status}")
+                            Text(text = "Bateria: ${lock?.batteryLevel}%")
                             Button(
                                 onClick = {},
                                 modifier = Modifier.fillMaxWidth()
@@ -60,15 +62,17 @@ fun LockDetailScreen(
                         }
                     }
 
-                    Text(text = "ID: ${lock.id}")
+                    Text(text = "ID: ${lock?.id}")
                     Button(onClick = {}, modifier = Modifier.fillMaxWidth()) { Text(text = "Pokaż lokalizację") }
-                    Button(onClick = {navController.navigate(AddNumberRoute(lock = lock))}, modifier = Modifier.fillMaxWidth()) { Text(text = "Dodaj numer") }
+                    Button(onClick = {lock?.let {
+                        navController.navigate(AddNumberRoute(lock = it))
+                    }}, modifier = Modifier.fillMaxWidth()) { Text(text = "Dodaj numer") }
                     Button(onClick = {}, modifier = Modifier.fillMaxWidth()) { Text(text = "Ping zamka") }
 
-                    if (lock.status == LockStatus.Activated) {
+                    if (lock?.status == LockStatus.Activated) {
                         Button(onClick = {}, modifier = Modifier.fillMaxWidth()) { Text(text = "Wyłącz zamek") }
                     }
-                    if (lock.status == LockStatus.Deactivated) {
+                    if (lock?.status == LockStatus.Deactivated) {
                         Button(onClick = {}, modifier = Modifier.fillMaxWidth()) { Text(text = "Włącz zamek") }
                     }
 
