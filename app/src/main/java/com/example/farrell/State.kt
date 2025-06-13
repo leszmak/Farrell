@@ -57,6 +57,32 @@ class State {
     fun getNumbersForSelectedLock(): List<PhoneNumber> {
         return phoneNumbersList.value.filter { it.lockId == selectedLock.value }
     }
+
+    fun addPhoneNumber(name: String, number: String): String {
+        if (name.isBlank()) {
+            return "Nazwa nie może być pusta"
+        }
+
+        if (number.length != 9) {
+            return "Numer musi mieć dokładnie 9 cyfr"
+        }
+
+        if (!number.all { it.isDigit() }) {
+            return "Numer może zawierać tylko cyfry"
+        }
+
+        val nextId = (phoneNumbersList.value.maxOfOrNull { it.id } ?: 0) + 1
+        val newPhoneNumber = PhoneNumber(
+            id = nextId,
+            lockId = selectedLock.value,
+            name = name,
+            number = number
+        )
+
+        phoneNumbersList.value = phoneNumbersList.value + newPhoneNumber
+        return "" // pusta wartość oznacza sukces
+    }
+
 //        private set
 
 

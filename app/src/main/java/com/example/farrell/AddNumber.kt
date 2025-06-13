@@ -20,12 +20,14 @@ import androidx.compose.runtime.getValue
 import androidx.navigation.NavController
 
 @Composable
-fun AddNumber( modifier: Modifier,
-               navController: NavController,
-               state: State
+fun AddNumber(
+    modifier: Modifier,
+    navController: NavController,
+    state: State
 ) {
     var name by remember { mutableStateOf("") }
     var number by remember { mutableStateOf("") }
+    var errorMessage by remember { mutableStateOf("") }
 
     Column(
         modifier = modifier
@@ -42,27 +44,52 @@ fun AddNumber( modifier: Modifier,
             Column(
                 verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
-
                 Text(text = "ID:")
                 TextField(
                     value = name,
                     onValueChange = { name = it },
                     modifier = Modifier.fillMaxWidth(),
-                    placeholder = { Text("Wprowadź ID") }
+                    placeholder = { Text("Wprowadź nazwę") }
                 )
-
 
                 Text(text = "Numer:")
                 TextField(
                     value = number,
                     onValueChange = { number = it },
                     modifier = Modifier.fillMaxWidth(),
-                    placeholder = { Text("Wprowadź nazwę") }
+                    placeholder = { Text("Wprowadź numer") }
                 )
 
+                if (errorMessage.isNotEmpty()) {
+                    Text(
+                        text = errorMessage,
+                        color = androidx.compose.ui.graphics.Color.Red,
+                        modifier = Modifier.padding(top = 4.dp)
+                    )
+                }
             }
         }
-        Button(onClick = {}, modifier = Modifier.fillMaxWidth()) { Text(text = "Dodaj") }
-        Button(onClick = {  navController.popBackStack() }, modifier = Modifier.fillMaxWidth()) { Text(text = "Wróć") }
+
+        Button(
+            onClick = {
+                val result = state.addPhoneNumber(name = name, number = number)
+                if (result.isEmpty()) {
+                    navController.popBackStack()
+                } else {
+                    errorMessage = result
+                }
+            },
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Text(text = "Dodaj")
+        }
+
+        Button(
+            onClick = { navController.popBackStack() },
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Text(text = "Wróć")
+        }
     }
 }
+
