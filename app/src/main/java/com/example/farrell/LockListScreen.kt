@@ -45,7 +45,7 @@ fun LockListScreen(
                         .padding(vertical = 8.dp)
                         .clickable {
                             state.selectedLock.value = lock.id
-                            navController.navigate(LockDetailRoute(lock = lock))
+                            navController.navigate(LockDetailRoute)
                         },
                     horizontalArrangement = Arrangement.SpaceBetween,
                 ) {

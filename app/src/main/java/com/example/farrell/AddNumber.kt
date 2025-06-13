@@ -22,7 +22,6 @@ import androidx.navigation.NavController
 @Composable
 fun AddNumber( modifier: Modifier,
                navController: NavController,
-               lock: Lock,
                state: State
 ) {
     var name by remember { mutableStateOf("") }

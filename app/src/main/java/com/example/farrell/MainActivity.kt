@@ -22,17 +22,13 @@ import kotlin.reflect.typeOf
 data object LockListRoute
 
 @Serializable
-data class LockDetailRoute(
-    val lock: Lock
-)
+data object LockDetailRoute
 
 @Serializable
 data object AddLockRoute
 
 @Serializable
-data class AddNumberRoute(
-    val lock: Lock
-)
+data object AddNumberRoute
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -56,12 +52,7 @@ class MainActivity : ComponentActivity() {
                             )
                         }
 
-                        composable<LockDetailRoute>(
-                            typeMap = mapOf(
-                                typeOf<Lock>() to CustomNavType.LockType
-                            )
-                        ) {
-                            val arguments = it.toRoute<LockDetailRoute>()
+                        composable<LockDetailRoute>{
                             LockDetailScreen(
                                 navController = navController,
                                 state = state
@@ -76,16 +67,10 @@ class MainActivity : ComponentActivity() {
                             )
                         }
 
-                        composable<AddNumberRoute>(
-                            typeMap = mapOf(
-                                typeOf<Lock>() to CustomNavType.LockType
-                            )
-                        ) {
-                            val arguments = it.toRoute<AddNumberRoute>()
+                        composable<AddNumberRoute> {
                             AddNumber(
                                 modifier = Modifier.padding(innerPadding),
                                 navController = navController,
-                                lock = arguments.lock,
                                 state = state
                             )
                         }

@@ -64,9 +64,7 @@ fun LockDetailScreen(
 
                     Text(text = "ID: ${lock?.id}")
                     Button(onClick = {}, modifier = Modifier.fillMaxWidth()) { Text(text = "Pokaż lokalizację") }
-                    Button(onClick = {lock?.let {
-                        navController.navigate(AddNumberRoute(lock = it))
-                    }}, modifier = Modifier.fillMaxWidth()) { Text(text = "Dodaj numer") }
+                    Button(onClick = { navController.navigate(AddNumberRoute) }, modifier = Modifier.fillMaxWidth()) { Text(text = "Dodaj numer") }
                     Button(onClick = {}, modifier = Modifier.fillMaxWidth()) { Text(text = "Ping zamka") }
 
                     if (lock?.status == LockStatus.Activated) {
@@ -77,6 +75,16 @@ fun LockDetailScreen(
                     }
 
                     Text(text = "Numery powiązane z zamkiem:")
+                    val numbers = state.getNumbersForSelectedLock()
+                    numbers.forEach { item ->
+                        Row(
+                            modifier = Modifier.fillMaxWidth().padding(vertical = 4.dp),
+                            horizontalArrangement = Arrangement.SpaceBetween
+                        ) {
+                            Text(text = item.name, modifier = Modifier.weight(1f))
+                            Text(text = item.number, modifier = Modifier.weight(1f))
+                        }
+                    }
                 }
             }
             Button(onClick = { navController.popBackStack() }, modifier = Modifier.fillMaxWidth()) { Text(text = "Wróć") }
