@@ -63,5 +63,6 @@ dependencies {
 
     implementation(libs.androidx.compose.navigation)
     implementation(libs.kotlinx.serialization.json)
+    implementation("com.google.accompanist:accompanist-permissions:0.35.0-alpha")
 
 }

@@ -1,5 +1,7 @@
 package com.example.farrell
 
+import android.Manifest
+import android.content.pm.PackageManager
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -10,6 +12,8 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -31,14 +35,32 @@ data object AddLockRoute
 data object AddNumberRoute
 
 class MainActivity : ComponentActivity() {
+
+    private val SMS_PERMISSION_REQUEST_CODE = 1001
+//    private val LOCATION_PERMISSION_REQUEST_CODE = 1002
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // Prośba o uprawnienie
+        checkAndRequestPermissions(
+            requestCode = SMS_PERMISSION_REQUEST_CODE,
+            permissions = arrayOf(Manifest.permission.SEND_SMS)
+        )
+
+//        checkAndRequestPermissions(
+//            requestCode = LOCATION_PERMISSION_REQUEST_CODE,
+//            permissions = arrayOf(Manifest.permission.ACCESS_FINE_LOCATION)
+//        )
+
         enableEdgeToEdge()
         setContent {
             val state = remember { State() }
+//            GetPermissions(this)
             FarrellTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     val navController = rememberNavController()
+                    GetPermissions(this)
                     NavHost(
                         navController = navController,
                         startDestination = LockListRoute,
@@ -77,6 +99,20 @@ class MainActivity : ComponentActivity() {
                     }
                 }
             }
+        }
+    }
+
+    fun checkAndRequestPermissions(requestCode: Int, permissions: Array<String>) {
+        val missingPermissions = permissions.filter {
+            ContextCompat.checkSelfPermission(this, it) != PackageManager.PERMISSION_GRANTED
+        }
+
+        if (missingPermissions.isNotEmpty()) {
+            ActivityCompat.requestPermissions(
+                this,
+                missingPermissions.toTypedArray(),
+                requestCode
+            )
         }
     }
 }

@@ -33,16 +33,16 @@ class State {
 //        Lock(26, "Garage", status = LockStatus.Stolen, batteryLevel = 52),
     )
     val phoneNumbers = listOf(
-        PhoneNumber(id = 1, lockId = 1, number = "+48722183087", name = "Mama"),
-        PhoneNumber(id = 2, lockId = 1, number = "+48722183087", name = "Tata"),
-        PhoneNumber(id = 3, lockId = 2, number = "+48722183087", name = "Praca"),
-        PhoneNumber(id = 4, lockId = 2, number = "+48722183087", name = "Przyjaciel"),
-        PhoneNumber(id = 5, lockId = 3, number = "+48722183087", name = "Serwis"),
-        PhoneNumber(id = 6, lockId = 3, number = "+48722183087", name = "Dziadek"),
-        PhoneNumber(id = 7, lockId = 4, number = "+48722183087", name = "Babcia"),
-        PhoneNumber(id = 8, lockId = 4, number = "+48722183087", name = "Szef"),
-        PhoneNumber(id = 9, lockId = 5, number = "+48722183087", name = "Przyjaciel 2"),
-        PhoneNumber(id = 10, lockId = 5, number = "+48722183087", name = "Serwis 2")
+        PhoneNumber(id = 1, lockId = 1, number = "722183087", name = "Mama"),
+        PhoneNumber(id = 2, lockId = 1, number = "722183087", name = "Tata"),
+        PhoneNumber(id = 3, lockId = 2, number = "722183087", name = "Praca"),
+        PhoneNumber(id = 4, lockId = 2, number = "722183087", name = "Przyjaciel"),
+        PhoneNumber(id = 5, lockId = 3, number = "722183087", name = "Serwis"),
+        PhoneNumber(id = 6, lockId = 3, number = "722183087", name = "Dziadek"),
+        PhoneNumber(id = 7, lockId = 4, number = "722183087", name = "Babcia"),
+        PhoneNumber(id = 8, lockId = 4, number = "722183087", name = "Szef"),
+        PhoneNumber(id = 9, lockId = 5, number = "722183087", name = "Przyjaciel 2"),
+        PhoneNumber(id = 10, lockId = 5, number = "722183087", name = "Serwis 2")
     )
 
 //    var lockList = mutableStateOf(listOf<Lock>())

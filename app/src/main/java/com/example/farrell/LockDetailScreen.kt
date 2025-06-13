@@ -1,4 +1,6 @@
 package com.example.farrell
+import android.app.Activity
+import android.widget.Toast
 import androidx.compose.foundation.clickable
 import com.example.farrell.AddNumberRoute
 import androidx.compose.foundation.layout.Arrangement
@@ -15,6 +17,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
@@ -26,6 +29,7 @@ fun LockDetailScreen(
     navController: NavController,
     state: State
 ) {
+    val context = LocalContext.current
     val lock = state.lockList.value.find { it.id == state.selectedLock.value }
     Box(
         modifier = Modifier.fillMaxSize(),
@@ -67,6 +71,30 @@ fun LockDetailScreen(
                     Button(onClick = {}, modifier = Modifier.fillMaxWidth()) { Text(text = "Pokaż lokalizację") }
                     Button(onClick = { navController.navigate(AddNumberRoute) }, modifier = Modifier.fillMaxWidth()) { Text(text = "Dodaj numer") }
                     Button(onClick = {}, modifier = Modifier.fillMaxWidth()) { Text(text = "Ping zamka") }
+//                    Button(onClick = {
+//
+////                        val phoneNumber = "607933117"
+//                        val phoneNumber = "722183087"
+//                        val message = "Uwaga! Próba kradzieży roweru ${lock?.name}. Wiadomość wysłana z aplikacji przez idiotę developera, jeśli nie wiesz o co chodzi toprzepraszam, że przeszkadzam"
+//                        val result = sendSms(context = context, phoneNumber = phoneNumber, message = message)
+//                        val activity = context as Activity
+//
+//                        requestSmsPermission(activity)
+//                        Toast.makeText(context, result, Toast.LENGTH_LONG).show()
+//                    }, modifier = Modifier.fillMaxWidth()) { Text(text = "Wyślij sms") }
+
+
+                    Button(onClick = {
+
+//                        val phoneNumber = "607933117"
+                        val phoneNumber = "722183087"
+                        val message = "Uwaga! Próba kradzieży roweru ${lock?.name}. Wiadomość wysłana z aplikacji przez idiotę developera, jeśli nie wiesz o co chodzi toprzepraszam, że przeszkadzam"
+                        val result = sendSms(context = context, phoneNumber = phoneNumber, message = message)
+//                        val activity = context as Activity
+//
+//                        requestSmsPermission(activity)
+                        Toast.makeText(context, result, Toast.LENGTH_LONG).show()
+                    }, modifier = Modifier.fillMaxWidth()) { Text(text = "Wyślij sms") }
 
                     if (lock?.status == LockStatus.Activated) {
                         Button(onClick = {}, modifier = Modifier.fillMaxWidth()) { Text(text = "Wyłącz zamek") }
