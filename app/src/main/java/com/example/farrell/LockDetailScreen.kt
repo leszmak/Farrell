@@ -1,4 +1,5 @@
 package com.example.farrell
+import androidx.compose.foundation.clickable
 import com.example.farrell.AddNumberRoute
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -81,8 +82,14 @@ fun LockDetailScreen(
                             modifier = Modifier.fillMaxWidth().padding(vertical = 4.dp),
                             horizontalArrangement = Arrangement.SpaceBetween
                         ) {
-                            Text(text = item.name, modifier = Modifier.weight(1f))
-                            Text(text = item.number, modifier = Modifier.weight(1f))
+                            Text(text = item.name, modifier = Modifier.weight(2f))
+                            Text(text = item.number, modifier = Modifier.weight(2f))
+                            Text(
+                                text = "x",
+                                modifier = Modifier
+                                    .weight(1f)
+                                    .clickable { state.removePhoneNumber(item.id) }
+                            )
                         }
                     }
                 }

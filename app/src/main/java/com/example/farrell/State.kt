@@ -83,6 +83,18 @@ class State {
         return "" // pusta wartość oznacza sukces
     }
 
+    fun removePhoneNumber(id: Int): Boolean {
+        val currentList = phoneNumbersList.value
+        val newList = currentList.filter { it.id != id }
+
+        return if (newList.size < currentList.size) {
+            phoneNumbersList.value = newList
+            true
+        } else {
+            false
+        }
+    }
+
 //        private set
 
 
