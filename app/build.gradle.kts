@@ -64,5 +64,7 @@ dependencies {
     implementation(libs.androidx.compose.navigation)
     implementation(libs.kotlinx.serialization.json)
     implementation("com.google.accompanist:accompanist-permissions:0.35.0-alpha")
+//    implementation("implementation 'com.google.android.gms:play-services-location:21.0.1'\n")
+
 
 }

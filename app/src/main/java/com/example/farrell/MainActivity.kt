@@ -34,24 +34,27 @@ data object AddLockRoute
 @Serializable
 data object AddNumberRoute
 
+@Serializable
+data object LocationRoute
+
 class MainActivity : ComponentActivity() {
 
-    private val SMS_PERMISSION_REQUEST_CODE = 1001
-//    private val LOCATION_PERMISSION_REQUEST_CODE = 1002
+//    private val SMS_PERMISSION_REQUEST_CODE = 1001
+    private val LOCATION_PERMISSION_REQUEST_CODE = 1002
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         // Prośba o uprawnienie
-        checkAndRequestPermissions(
-            requestCode = SMS_PERMISSION_REQUEST_CODE,
-            permissions = arrayOf(Manifest.permission.SEND_SMS)
-        )
-
 //        checkAndRequestPermissions(
-//            requestCode = LOCATION_PERMISSION_REQUEST_CODE,
-//            permissions = arrayOf(Manifest.permission.ACCESS_FINE_LOCATION)
+//            requestCode = SMS_PERMISSION_REQUEST_CODE,
+//            permissions = arrayOf(Manifest.permission.SEND_SMS)
 //        )
+
+        checkAndRequestPermissions(
+            requestCode = LOCATION_PERMISSION_REQUEST_CODE,
+            permissions = arrayOf(Manifest.permission.ACCESS_FINE_LOCATION)
+        )
 
         enableEdgeToEdge()
         setContent {
@@ -94,6 +97,13 @@ class MainActivity : ComponentActivity() {
                                 modifier = Modifier.padding(innerPadding),
                                 navController = navController,
                                 state = state
+                            )
+                        }
+
+                        composable<LocationRoute> {
+                            LocationScreen(
+                                state = state,
+                                navController = navController
                             )
                         }
                     }
