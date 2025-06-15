@@ -1,5 +1,6 @@
 package com.example.farrell
 
+import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -17,6 +18,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavController
 
 @Composable
@@ -24,9 +26,7 @@ fun AddLockScreen(modifier: Modifier,
                   navController: NavController,
                   state: State
 ) {
-    var id by remember { mutableStateOf("") }
-    var name by remember { mutableStateOf("") }
-
+    val context = LocalContext.current
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -45,8 +45,8 @@ fun AddLockScreen(modifier: Modifier,
 
                     Text(text = "ID:")
                     TextField(
-                        value = id,
-                        onValueChange = { id = it },
+                        value = state.newlockid.value,
+                        onValueChange = { state.newlockid.value = it },
                         modifier = Modifier.fillMaxWidth(),
                         placeholder = { Text("Wprowadź ID") }
                     )
@@ -72,15 +72,25 @@ fun AddLockScreen(modifier: Modifier,
 
                     Text(text = "Nazwa:")
                     TextField(
-                        value = name,
-                        onValueChange = { name = it },
+                        value = state.newlockname.value,
+                        onValueChange = { state.newlockname.value = it },
                         modifier = Modifier.fillMaxWidth(),
                         placeholder = { Text("Wprowadź nazwę") }
                     )
 
             }
         }
-        Button(onClick = {}, modifier = Modifier.fillMaxWidth()) { Text(text = "Zapisz") }
+        Button(
+            onClick = {
+                val message = state.addLock()
+                Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+                navController.popBackStack()
+
+            },
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Text(text = "Zapisz")
+        }
         Button(onClick = {navController.popBackStack()}, modifier = Modifier.fillMaxWidth()) { Text(text = "Wróć") }
     }
 }

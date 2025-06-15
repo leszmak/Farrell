@@ -51,6 +51,8 @@ class State {
     var lockList = mutableStateOf(locks)
     var phoneNumbersList = mutableStateOf(phoneNumbers)
 
+    var newlockname =  mutableStateOf("")
+    var newlockid = mutableStateOf("")
 
     var selectedLock = mutableStateOf(1)
 
@@ -94,6 +96,27 @@ class State {
             false
         }
     }
+
+    fun addLock(): String {
+        val name = newlockname.value.trim()
+        val idText = newlockid.value.trim()
+
+        if (name.isEmpty()) return "Podaj nazwę zabezpieczenia"
+        if (idText.isEmpty()) return "Podaj ID zabezpieczenia"
+
+        val id = (lockList.value.maxOfOrNull { it.id } ?: 0) + 1
+        val newLock = Lock(
+            id = id,
+            name = name,
+            status = LockStatus.Deactivated,
+            batteryLevel = 100
+        )
+
+        lockList.value = lockList.value + newLock
+        return "Dodano zabezpieczenie $name"
+    }
+
+
 
 //        private set
 
