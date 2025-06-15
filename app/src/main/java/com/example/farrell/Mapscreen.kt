@@ -15,7 +15,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
-
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
@@ -48,7 +47,6 @@ fun MapScreen(context: Context = LocalContext.current, navController: NavControl
 
     val cameraPositionState = rememberCameraPositionState()
 
-    // Sprawdź i poproś o pozwolenie
     LaunchedEffect(locationPermissionState.status) {
         if (locationPermissionState.status.isGranted) {
             try {
@@ -71,7 +69,7 @@ fun MapScreen(context: Context = LocalContext.current, navController: NavControl
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .weight(1f) // rozmiar okienka mapy
+                .weight(1f)
         ) {
             GoogleMap(
                 modifier = Modifier.fillMaxSize(),
@@ -79,13 +77,13 @@ fun MapScreen(context: Context = LocalContext.current, navController: NavControl
                 properties = MapProperties(isMyLocationEnabled = locationPermissionState.status.isGranted)
             ) {
                 currentLocation?.let { location ->
-                    // Główny punkt (użytkownik)
+
                     Marker(
                         state = MarkerState(position = location),
                         title = "Twoja lokalizacja"
                     )
 
-                    // Punkt poboczny oddalony o ~50m na północny-wschód
+
                     val nearbyPoint = LatLng(location.latitude + 0.0004, location.longitude + 0.0004)
                     Marker(
                         state = MarkerState(position = nearbyPoint),
@@ -95,7 +93,6 @@ fun MapScreen(context: Context = LocalContext.current, navController: NavControl
             }
         }
 
-        // Przycisk "Wróć"
         Button(
             onClick = { navController.popBackStack()  },
             modifier = Modifier
