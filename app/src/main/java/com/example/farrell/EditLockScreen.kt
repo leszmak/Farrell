@@ -111,31 +111,5 @@ fun EditLockScreen(
     }
 }
 
-@Composable
-fun DropdownMenuBox(
-    selectedStatus: LockStatus,
-    onStatusChange: (LockStatus) -> Unit
-) {
-    var expanded by remember { mutableStateOf(false) }
 
-    Box {
-        OutlinedButton(onClick = { expanded = true }) {
-            Text(text = selectedStatus.name)
-        }
-        DropdownMenu(
-            expanded = expanded,
-            onDismissRequest = { expanded = false }
-        ) {
-            LockStatus.values().forEach { status ->
-                DropdownMenuItem(
-                    text = { Text(status.name) },
-                    onClick = {
-                        onStatusChange(status)
-                        expanded = false
-                    }
-                )
-            }
-        }
-    }
-}
 

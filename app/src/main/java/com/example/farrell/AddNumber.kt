@@ -44,7 +44,7 @@ fun AddNumber(
             Column(
                 verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
-                Text(text = "ID:")
+                Text(text = "Nazwa numeru:")
                 TextField(
                     value = name,
                     onValueChange = { name = it },

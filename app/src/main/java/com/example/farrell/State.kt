@@ -103,21 +103,15 @@ class State {
         }
     }
 
-    fun addLock(): String {
-        val name = newlockname.value.trim()
-        val lockid = newlockid.value.trim()
+    fun addLock(lock: Lock): String {
+        val name = lock.name.trim()
+        val lockid = lock.lockid.trim()
 
         if (name.isEmpty()) return "Podaj nazwę zabezpieczenia"
         if (lockid.isEmpty()) return "Podaj ID zabezpieczenia"
 
         val id = (lockList.value.maxOfOrNull { it.id } ?: 0) + 1
-        val newLock = Lock(
-            id = id,
-            name = name,
-            status = LockStatus.Deactivated,
-            batteryLevel = 100,
-            lockid = lockid
-        )
+        val newLock = lock.copy(id = id)
 
         lockList.value = lockList.value + newLock
         return "Dodano zabezpieczenie"

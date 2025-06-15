@@ -73,7 +73,7 @@ fun LockDetailScreen(
                         }
                     }
 
-                    Text(text = "ID: ${lock?.id}")
+                    Text(text = "ID: ${lock?.lockid}")
                     Button(onClick = {navController.navigate(MapScreenRoute)}, modifier = Modifier.fillMaxWidth()) { Text(text = "Pokaż lokalizację") }
                     Button(onClick = { navController.navigate(AddNumberRoute) }, modifier = Modifier.fillMaxWidth()) { Text(text = "Dodaj numer") }
 
@@ -99,13 +99,9 @@ fun LockDetailScreen(
                         Toast.makeText(context, result, Toast.LENGTH_LONG).show()
                     }, modifier = Modifier.fillMaxWidth()) { Text(text = "Wyślij sms") }
 
-                    if (lock?.status == LockStatus.Activated) {
-                        Button(onClick = {}, modifier = Modifier.fillMaxWidth()) { Text(text = "Wyłącz zamek") }
-                    }
-                    if (lock?.status == LockStatus.Deactivated) {
-                        Button(onClick = {}, modifier = Modifier.fillMaxWidth()) { Text(text = "Włącz zamek") }
-                    }
+
                     DeleteButtonWithConfirmation(state = state, navController = navController)
+
                     Text(text = "Numery powiązane z zamkiem:")
                     val numbers = state.getNumbersForSelectedLock()
                     numbers.forEach { item ->
