@@ -39,6 +39,12 @@ class State {
     val phoneNumbers = listOf(
         PhoneNumber(id = 1, lockId = 1, number = "722183087", name = "Mama"),
         PhoneNumber(id = 2, lockId = 1, number = "722183087", name = "Tata"),
+        PhoneNumber(id = 11, lockId = 1, number = "722183087", name = "Mama"),
+        PhoneNumber(id = 12, lockId = 1, number = "722183087", name = "Tata"),
+        PhoneNumber(id = 13, lockId = 1, number = "722183087", name = "Mama"),
+        PhoneNumber(id = 14, lockId = 1, number = "722183087", name = "Tata"),
+        PhoneNumber(id = 15, lockId = 1, number = "722183087", name = "Mama"),
+        PhoneNumber(id = 16, lockId = 1, number = "722183087", name = "Tata"),
         PhoneNumber(id = 3, lockId = 2, number = "722183087", name = "Praca"),
         PhoneNumber(id = 4, lockId = 2, number = "722183087", name = "Przyjaciel"),
         PhoneNumber(id = 5, lockId = 3, number = "722183087", name = "Serwis"),
