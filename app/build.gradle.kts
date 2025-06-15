@@ -71,6 +71,7 @@ dependencies {
 
 //    // Google Play Services Maps
     implementation("com.google.android.gms:play-services-maps:18.2.0")
+
 //
 //    // Google Play Services Location
 //    implementation("com.google.android.gms:play-services-location:21.0.1")
@@ -99,4 +100,8 @@ dependencies {
     // Optionally, you can include the Compose utils library for Clustering,
     // Street View metadata checks, etc.
     implementation("com.google.maps.android:maps-compose-utils:6.6.0")
+
+    implementation("com.google.android.gms:play-services-location:21.0.1")
+
+
 }

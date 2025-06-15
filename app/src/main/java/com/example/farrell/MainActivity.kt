@@ -45,22 +45,9 @@ data object EditLockRoute
 
 class MainActivity : ComponentActivity() {
 
-//    private val SMS_PERMISSION_REQUEST_CODE = 1001
-    private val LOCATION_PERMISSION_REQUEST_CODE = 1002
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // Prośba o uprawnienie
-//        checkAndRequestPermissions(
-//            requestCode = SMS_PERMISSION_REQUEST_CODE,
-//            permissions = arrayOf(Manifest.permission.SEND_SMS)
-//        )
-
-//        checkAndRequestPermissions(
-//            requestCode = LOCATION_PERMISSION_REQUEST_CODE,
-//            permissions = arrayOf(Manifest.permission.ACCESS_FINE_LOCATION)
-//        )
 
         val requiredPermissions = arrayOf(
             Manifest.permission.SEND_SMS,
@@ -128,6 +115,7 @@ class MainActivity : ComponentActivity() {
 
                         composable<MapScreenRoute> {
                             MapScreen(
+                                navController = navController
                             )
                         }
 
