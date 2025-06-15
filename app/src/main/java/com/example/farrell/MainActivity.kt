@@ -40,6 +40,9 @@ data object LocationRoute
 @Serializable
 data object MapScreenRoute
 
+@Serializable
+data object EditLockRoute
+
 class MainActivity : ComponentActivity() {
 
 //    private val SMS_PERMISSION_REQUEST_CODE = 1001
@@ -125,6 +128,13 @@ class MainActivity : ComponentActivity() {
 
                         composable<MapScreenRoute> {
                             MapScreen(
+                            )
+                        }
+
+                        composable<EditLockRoute> {
+                            EditLockScreen(
+                                state = state,
+                                navController = navController
                             )
                         }
                     }

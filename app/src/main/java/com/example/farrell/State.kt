@@ -1,6 +1,9 @@
 package com.example.farrell
 
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 
 
 class State {
@@ -54,6 +57,8 @@ class State {
 
     var newlockname =  mutableStateOf("")
     var newlockid = mutableStateOf("")
+    var status = mutableStateOf(LockStatus.Deactivated)
+    var batteryLevel = mutableStateOf(100)
 
     var selectedLock = mutableStateOf(1)
 
@@ -117,6 +122,53 @@ class State {
         lockList.value = lockList.value + newLock
         return "Dodano zabezpieczenie"
     }
+
+    fun getSelectedLock(): Lock? {
+        return lockList.value.find { it.id == selectedLock.value }
+    }
+
+    fun deleteSelectedLock(): String {
+        val lockToDelete = lockList.value.find { it.id == selectedLock.value }
+        return if (lockToDelete != null) {
+            lockList.value = lockList.value - lockToDelete
+            "Usunięto zabezpieczenie"
+        } else {
+            "Nie znaleziono zabezpieczenia do usunięcia"
+        }
+    }
+
+    fun editSelectedLock(updatedLock: Lock): String {
+        val currentList = lockList.value
+        val oldLock = currentList.find { it.id == updatedLock.id }
+
+        if (oldLock == null) {
+            return "Nie znaleziono zabezpieczenia do edycji"
+        }
+        if (updatedLock.name.isEmpty()) return "Nazwa nie może być pusta"
+        if (updatedLock.lockid.isEmpty()) return "Id nie może być pusty"
+
+        // Porównaj czy coś się zmieniło
+        if (
+            oldLock.name == updatedLock.name &&
+            oldLock.lockid == updatedLock.lockid &&
+            oldLock.status == updatedLock.status &&
+            oldLock.batteryLevel == updatedLock.batteryLevel
+        ) {
+            return "Brak zmian do zapisania"
+        }
+
+        // Aktualizacja: usuń stary, dodaj nowy
+        lockList.value = currentList - oldLock + updatedLock
+
+        return "Zabezpieczenie zaktualizowane"
+    }
+
+//    fun resetSelectedLock(){
+//        newlockname.value = "newLock"
+//        newlockid.value = "newLock"
+//        status.value = LockStatus.Deactivated
+//        batteryLevel.value = 100
+//    }
 
 
 

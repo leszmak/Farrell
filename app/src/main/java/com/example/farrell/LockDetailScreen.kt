@@ -12,9 +12,15 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -61,7 +67,7 @@ fun LockDetailScreen(
                             Text(text = "${lock?.status}")
                             Text(text = "Bateria: ${lock?.batteryLevel}%")
                             Button(
-                                onClick = {},
+                                onClick = {navController.navigate(EditLockRoute)},
                                 modifier = Modifier.fillMaxWidth()
                             ) { Text(text = "Edytuj") }
                         }
@@ -70,12 +76,11 @@ fun LockDetailScreen(
                     Text(text = "ID: ${lock?.id}")
                     Button(onClick = {navController.navigate(MapScreenRoute)}, modifier = Modifier.fillMaxWidth()) { Text(text = "Pokaż lokalizację") }
                     Button(onClick = { navController.navigate(AddNumberRoute) }, modifier = Modifier.fillMaxWidth()) { Text(text = "Dodaj numer") }
-                    Button(onClick = {}, modifier = Modifier.fillMaxWidth()) { Text(text = "Ping zamka") }
+
 //                    Button(onClick = {
 //
-////                        val phoneNumber = "607933117"
 //                        val phoneNumber = "722183087"
-//                        val message = "Uwaga! Próba kradzieży roweru ${lock?.name}. Wiadomość wysłana z aplikacji przez idiotę developera, jeśli nie wiesz o co chodzi toprzepraszam, że przeszkadzam"
+//                        val message = "Uwaga! Próba kradzieży roweru ${lock?.name}. Wiadomość wysłana z aplikacji przez idiotę developera, jeśli nie wiesz o co chodzi to przepraszam, że przeszkadzam"
 //                        val result = sendSms(context = context, phoneNumber = phoneNumber, message = message)
 //                        val activity = context as Activity
 //
@@ -86,13 +91,11 @@ fun LockDetailScreen(
 
                     Button(onClick = {
 
-//                        val phoneNumber = "607933117"
+
                         val phoneNumber = "722183087"
                         val message = "Uwaga! Próba kradzieży roweru ${lock?.name}. Wiadomość wysłana z aplikacji przez idiotę developera, jeśli nie wiesz o co chodzi toprzepraszam, że przeszkadzam"
                         val result = sendSms(context = context, phoneNumber = phoneNumber, message = message)
-//                        val activity = context as Activity
-//
-//                        requestSmsPermission(activity)
+
                         Toast.makeText(context, result, Toast.LENGTH_LONG).show()
                     }, modifier = Modifier.fillMaxWidth()) { Text(text = "Wyślij sms") }
 
@@ -102,7 +105,7 @@ fun LockDetailScreen(
                     if (lock?.status == LockStatus.Deactivated) {
                         Button(onClick = {}, modifier = Modifier.fillMaxWidth()) { Text(text = "Włącz zamek") }
                     }
-
+                    DeleteButtonWithConfirmation(state = state, navController = navController)
                     Text(text = "Numery powiązane z zamkiem:")
                     val numbers = state.getNumbersForSelectedLock()
                     numbers.forEach { item ->
@@ -127,3 +130,43 @@ fun LockDetailScreen(
     }
 }
 
+@Composable
+fun DeleteButtonWithConfirmation(state: State, navController: NavController) {
+    var showDialog by remember { mutableStateOf(false) }
+    val context = LocalContext.current
+    // Przycisk "Usuń"
+    Button(
+        onClick = { showDialog = true },
+        modifier = Modifier.fillMaxWidth()
+    ) {
+        Text("Usuń")
+    }
+
+    // Okno potwierdzenia
+    if (showDialog) {
+        AlertDialog(
+            onDismissRequest = { showDialog = false },
+            title = { Text("Potwierdzenie") },
+            text = { Text("Czy na pewno chcesz usunąć ten zamek?") },
+            confirmButton = {
+                TextButton(
+                    onClick = {
+                        showDialog = false
+                        state.deleteSelectedLock()
+                        Toast.makeText(context, "Usunięto zabezpieczenie", Toast.LENGTH_SHORT).show()
+                        navController.popBackStack()
+                    }
+                ) {
+                    Text("Tak")
+                }
+            },
+            dismissButton = {
+                TextButton(
+                    onClick = { showDialog = false }
+                ) {
+                    Text("Nie")
+                }
+            }
+        )
+    }
+}
