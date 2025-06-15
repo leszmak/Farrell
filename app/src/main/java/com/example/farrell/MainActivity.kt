@@ -37,6 +37,9 @@ data object AddNumberRoute
 @Serializable
 data object LocationRoute
 
+@Serializable
+data object MapScreenRoute
+
 class MainActivity : ComponentActivity() {
 
 //    private val SMS_PERMISSION_REQUEST_CODE = 1001
@@ -51,10 +54,23 @@ class MainActivity : ComponentActivity() {
 //            permissions = arrayOf(Manifest.permission.SEND_SMS)
 //        )
 
-        checkAndRequestPermissions(
-            requestCode = LOCATION_PERMISSION_REQUEST_CODE,
-            permissions = arrayOf(Manifest.permission.ACCESS_FINE_LOCATION)
+//        checkAndRequestPermissions(
+//            requestCode = LOCATION_PERMISSION_REQUEST_CODE,
+//            permissions = arrayOf(Manifest.permission.ACCESS_FINE_LOCATION)
+//        )
+
+        val requiredPermissions = arrayOf(
+            Manifest.permission.SEND_SMS,
+            Manifest.permission.READ_PHONE_STATE,
+            Manifest.permission.READ_PHONE_NUMBERS,
+            Manifest.permission.ACCESS_COARSE_LOCATION,
+            Manifest.permission.ACCESS_FINE_LOCATION,
+            Manifest.permission.INTERNET
         )
+
+        checkAndRequestPermissions(requestCode = 1000, permissions = requiredPermissions)
+
+
 
         enableEdgeToEdge()
         setContent {
@@ -104,6 +120,11 @@ class MainActivity : ComponentActivity() {
                             LocationScreen(
                                 state = state,
                                 navController = navController
+                            )
+                        }
+
+                        composable<MapScreenRoute> {
+                            MapScreen(
                             )
                         }
                     }

@@ -68,7 +68,7 @@ fun LockDetailScreen(
                     }
 
                     Text(text = "ID: ${lock?.id}")
-                    Button(onClick = {navController.navigate(LocationRoute)}, modifier = Modifier.fillMaxWidth()) { Text(text = "Pokaż lokalizację") }
+                    Button(onClick = {navController.navigate(MapScreenRoute)}, modifier = Modifier.fillMaxWidth()) { Text(text = "Pokaż lokalizację") }
                     Button(onClick = { navController.navigate(AddNumberRoute) }, modifier = Modifier.fillMaxWidth()) { Text(text = "Dodaj numer") }
                     Button(onClick = {}, modifier = Modifier.fillMaxWidth()) { Text(text = "Ping zamka") }
 //                    Button(onClick = {
