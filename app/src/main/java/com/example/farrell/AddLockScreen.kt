@@ -84,7 +84,7 @@ fun AddLockScreen(modifier: Modifier,
             onClick = {
                 val message = state.addLock()
                 Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
-                navController.popBackStack()
+                if(message == "Dodano zabezpieczenie") navController.popBackStack()
 
             },
             modifier = Modifier.fillMaxWidth()

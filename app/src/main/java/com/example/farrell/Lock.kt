@@ -4,7 +4,8 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class Lock(
     val id: Int,
-    var name: String,
+    val lockid: String,
+    val name: String,
     val status: LockStatus,
     val batteryLevel: Int
 )

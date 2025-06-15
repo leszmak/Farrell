@@ -5,33 +5,34 @@ import androidx.compose.runtime.mutableStateOf
 
 class State {
     val locks = listOf(
-        Lock(1, "Front aaaaaaaaaaaa aaaaaaaaaaaaaaaaa aaaaaaaaaa aaaaa", status = LockStatus.Activated, batteryLevel = 78),
-        Lock(2, "Garage22222", status = LockStatus.Deactivated, batteryLevel = 52),
-        Lock(3, "Front Door", status = LockStatus.Activated, batteryLevel = 78),
-        Lock(4, "Garage", status = LockStatus.Deactivated, batteryLevel = 52),
-        Lock(5, "Front Door", status = LockStatus.Activated, batteryLevel = 78),
-//        Lock(6, "Garage", status = LockStatus.Deactivated, batteryLevel = 52),
-//        Lock(7, "Front Door", status = LockStatus.Activated, batteryLevel = 78),
-//        Lock(8, "Garage", status = LockStatus.Deactivated, batteryLevel = 52),
-//        Lock(9, "Front Door", status = LockStatus.Activated, batteryLevel = 78),
-//        Lock(10, "Garage", status = LockStatus.Deactivated, batteryLevel = 52),
-//        Lock(11, "Front Door", status = LockStatus.Activated, batteryLevel = 78),
-//        Lock(12, "Garage", status = LockStatus.Deactivated, batteryLevel = 52),
-//        Lock(13, "Front Door", status = LockStatus.Activated, batteryLevel = 78),
-//        Lock(14, "Garage", status = LockStatus.Deactivated, batteryLevel = 52),
-//        Lock(15, "Front Door", status = LockStatus.Activated, batteryLevel = 78),
-//        Lock(16, "Garage", status = LockStatus.Deactivated, batteryLevel = 52),
-//        Lock(17, "Front Door", status = LockStatus.Activated, batteryLevel = 78),
-//        Lock(18, "Garage", status = LockStatus.Deactivated, batteryLevel = 52),
-//        Lock(19, "Front Door", status = LockStatus.Activated, batteryLevel = 78),
-//        Lock(20, "Garage", status = LockStatus.Deactivated, batteryLevel = 52),
-//        Lock(21, "Front Door", status = LockStatus.Activated, batteryLevel = 78),
-//        Lock(22, "Garage", status = LockStatus.Deactivated, batteryLevel = 52),
-//        Lock(23, "Front Door", status = LockStatus.Activated, batteryLevel = 78),
-//        Lock(24, "Garage", status = LockStatus.Deactivated, batteryLevel = 52),
-//        Lock(25, "Front Door", status = LockStatus.Activated, batteryLevel = 78),
-//        Lock(26, "Garage", status = LockStatus.Stolen, batteryLevel = 52),
+        Lock(1, "lockid1", "Front aaaaaaaaaaaa aaaaaaaaaaaaaaaaa aaaaaaaaaa aaaaa", status = LockStatus.Activated, batteryLevel = 78),
+        Lock(2, "lockid2", "Garage22222", status = LockStatus.Deactivated, batteryLevel = 52),
+        Lock(3, "lockid3", "Front Door", status = LockStatus.Activated, batteryLevel = 78),
+        Lock(4, "lockid4", "Garage", status = LockStatus.Deactivated, batteryLevel = 52),
+        Lock(5, "lockid5", "Front Door", status = LockStatus.Activated, batteryLevel = 78),
+//    Lock(6, "lockid6", "Garage", status = LockStatus.Deactivated, batteryLevel = 52),
+//    Lock(7, "lockid7", "Front Door", status = LockStatus.Activated, batteryLevel = 78),
+//    Lock(8, "lockid8", "Garage", status = LockStatus.Deactivated, batteryLevel = 52),
+//    Lock(9, "lockid9", "Front Door", status = LockStatus.Activated, batteryLevel = 78),
+//    Lock(10, "lockid10", "Garage", status = LockStatus.Deactivated, batteryLevel = 52),
+//    Lock(11, "lockid11", "Front Door", status = LockStatus.Activated, batteryLevel = 78),
+//    Lock(12, "lockid12", "Garage", status = LockStatus.Deactivated, batteryLevel = 52),
+//    Lock(13, "lockid13", "Front Door", status = LockStatus.Activated, batteryLevel = 78),
+//    Lock(14, "lockid14", "Garage", status = LockStatus.Deactivated, batteryLevel = 52),
+//    Lock(15, "lockid15", "Front Door", status = LockStatus.Activated, batteryLevel = 78),
+//    Lock(16, "lockid16", "Garage", status = LockStatus.Deactivated, batteryLevel = 52),
+//    Lock(17, "lockid17", "Front Door", status = LockStatus.Activated, batteryLevel = 78),
+//    Lock(18, "lockid18", "Garage", status = LockStatus.Deactivated, batteryLevel = 52),
+//    Lock(19, "lockid19", "Front Door", status = LockStatus.Activated, batteryLevel = 78),
+//    Lock(20, "lockid20", "Garage", status = LockStatus.Deactivated, batteryLevel = 52),
+//    Lock(21, "lockid21", "Front Door", status = LockStatus.Activated, batteryLevel = 78),
+//    Lock(22, "lockid22", "Garage", status = LockStatus.Deactivated, batteryLevel = 52),
+//    Lock(23, "lockid23", "Front Door", status = LockStatus.Activated, batteryLevel = 78),
+//    Lock(24, "lockid24", "Garage", status = LockStatus.Deactivated, batteryLevel = 52),
+//    Lock(25, "lockid25", "Front Door", status = LockStatus.Activated, batteryLevel = 78),
+//    Lock(26, "lockid26", "Garage", status = LockStatus.Stolen, batteryLevel = 52),
     )
+
     val phoneNumbers = listOf(
         PhoneNumber(id = 1, lockId = 1, number = "722183087", name = "Mama"),
         PhoneNumber(id = 2, lockId = 1, number = "722183087", name = "Tata"),
@@ -99,21 +100,22 @@ class State {
 
     fun addLock(): String {
         val name = newlockname.value.trim()
-        val idText = newlockid.value.trim()
+        val lockid = newlockid.value.trim()
 
         if (name.isEmpty()) return "Podaj nazwę zabezpieczenia"
-        if (idText.isEmpty()) return "Podaj ID zabezpieczenia"
+        if (lockid.isEmpty()) return "Podaj ID zabezpieczenia"
 
         val id = (lockList.value.maxOfOrNull { it.id } ?: 0) + 1
         val newLock = Lock(
             id = id,
             name = name,
             status = LockStatus.Deactivated,
-            batteryLevel = 100
+            batteryLevel = 100,
+            lockid = lockid
         )
 
         lockList.value = lockList.value + newLock
-        return "Dodano zabezpieczenie $name"
+        return "Dodano zabezpieczenie"
     }
 
 
