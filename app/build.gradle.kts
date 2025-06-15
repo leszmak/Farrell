@@ -1,4 +1,3 @@
-import com.android.build.gradle.internal.scope.ProjectInfo.Companion.getBaseName
 
 plugins {
     alias(libs.plugins.android.application)
@@ -6,9 +5,7 @@ plugins {
     alias(libs.plugins.kotlin.compose)
 
     alias(libs.plugins.jetbrains.kotlin.serialization)
-//    id("kotlin-kapt")
-//    id("dagger.hilt.android.plugin")
-//    id("com.google.android.")
+
     id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
 }
 
@@ -68,39 +65,9 @@ dependencies {
     implementation(libs.androidx.compose.navigation)
     implementation(libs.kotlinx.serialization.json)
     implementation("com.google.accompanist:accompanist-permissions:0.35.0-alpha")
-
-//    // Google Play Services Maps
     implementation("com.google.android.gms:play-services-maps:18.2.0")
-
-//
-//    // Google Play Services Location
-//    implementation("com.google.android.gms:play-services-location:21.0.1")
-//
-//    // Maps Compose (wersja 2.11.4 jest dostępna)
-//    implementation("com.google.maps.android:maps-compose:2.15.0")
-//
-//    // Google Maps Android Utilities — zmień na 2.11.0, bo 2.11.4 nie ma
-//    implementation("com.google.maps.android:maps-utils-compose:2.11.0")
-//
-//    // Dagger Hilt
-//    implementation("com.google.dagger:hilt-android:2.50")
-//    kapt("com.google.dagger:hilt-android-compiler:2.50")
-//
-//    // Compose
-//    implementation("androidx.activity:activity-compose:1.9.0")
-//    implementation("androidx.compose.ui:ui:1.6.7")
-//    implementation("androidx.compose.material3:material3:1.2.1")
-//
-//    // Core
-//    implementation("androidx.core:core-ktx:1.13.1")
-//    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.7.0")
-
     implementation("com.google.maps.android:maps-compose:6.6.0")
-
-    // Optionally, you can include the Compose utils library for Clustering,
-    // Street View metadata checks, etc.
     implementation("com.google.maps.android:maps-compose-utils:6.6.0")
-
     implementation("com.google.android.gms:play-services-location:21.0.1")
 
 

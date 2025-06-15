@@ -10,15 +10,17 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Modifier
 
 @Composable
 fun DropdownMenuBox(
+    modifier: Modifier = Modifier,
     selectedStatus: LockStatus,
     onStatusChange: (LockStatus) -> Unit
 ) {
     var expanded by remember { mutableStateOf(false) }
 
-    Box {
+    Box(modifier = modifier) {
         OutlinedButton(onClick = { expanded = true }) {
             Text(text = selectedStatus.name)
         }
