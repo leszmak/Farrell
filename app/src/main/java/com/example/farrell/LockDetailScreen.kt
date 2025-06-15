@@ -101,11 +101,14 @@ fun LockDetailScreen(
 
             Button(
                 onClick = {
-                    val phoneNumber = "722183087"
-                    val message =
-                        "Uwaga! Próba kradzieży roweru ${lock?.name}. Wiadomość wysłana z aplikacji przez idiotę developera, jeśli nie wiesz o co chodzi to przepraszam, że przeszkadzam"
-                    val result =
-                        sendSms(context = context, phoneNumber = phoneNumber, message = message)
+                    val phoneNumbers = state.getNumbersForSelectedLock()
+                    val result = ""
+                    phoneNumbers.forEach{number ->
+                        val message =
+                            "Uwaga! Próba kradzieży roweru ${lock?.name}."
+                        sendSms(context = context, phoneNumber = number.number, message = message)
+                    }
+
                     Toast.makeText(context, result, Toast.LENGTH_LONG).show()
                 },
                 modifier = Modifier.fillMaxWidth()
